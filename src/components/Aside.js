@@ -8,9 +8,13 @@ function Aside(props) {
 
     return (
         <div className="Aside">
-            <h1>Aside component</h1>
+            <div className="asideheader">
+                <h1>Tweets near me</h1>
+                <p>Use the <i className="fas fa-crosshairs"></i> below to find tweets near your location or search for addresses, place names, or landmarks using the search bar. You can also drag the map to search.</p>
+            </div>
             <SearchBar searchByLocation={props.searchByLocation} getTweetsNearMe={props.getTweetsNearMe} />
-            {props.tweets.tweets ? <Tweetlist highlightTweet={props.highlightTweet} showTweetLocation={props.showTweetLocation} tweets={props.tweets} /> : null}
+
+            {props.tweets.tweets ? <Tweetlist highlightTweet={props.highlightTweet} tweets={props.tweets} highlightedTweet={props.highlightedTweet} /> : null}
         </div>
     );
 }

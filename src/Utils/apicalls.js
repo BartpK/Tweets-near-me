@@ -10,15 +10,20 @@ export const requestTweets = async (lat, lon) => {
     return filteredData;
 }
 
-
+//Need to fix error for invalid search query
 export const getCoordsFromQuery = async (query) => {
-    const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${query}&key=${geoApiKey}&language=en&pretty=1`);
-    const data = await response.json()
-
-    const coordsObject = {
-        latitude: data.results[0].geometry.lat,
-        longitude: data.results[0].geometry.lng
+    try {
+        const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${query}&key=${geoApiKey}&language=en&pretty=1`);
+        const data = await response.json()
+        const coordsObject = {
+            lat: data.results[0].geometry.lat,
+            lng: data.results[0].geometry.lng
+        }
+        return coordsObject
+    } catch (err) {
+        return {
+            lat: 52.379189,
+            lng: 4.899431
+        }
     }
-
-    return coordsObject
 }

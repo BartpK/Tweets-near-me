@@ -12,18 +12,13 @@ function App() {
 
   const [tweets, setTweets] = useState({ tweets: [] });
   const [mapLocation, setMapLocation] = useState({
-    lat: 37.42216,
-    lng: -123.08427,
+    lat: 52.092876,
+    lng: 5.104480,
   })
 
   const [showAreaSearchButton, setShowAreaSearchButton] = useState(false);
 
   const [dragLocation, setDragLocation] = useState({})
-
-  const [tweetLocation, setTweetLocation] = useState({
-    lat: 37.42216,
-    lng: -122.08427,
-  })
 
   const toggleAreaSearchButton = (dragLocation) => {
     if ((mapLocation.lat - dragLocation.lat >= 0.02 || mapLocation.lat - dragLocation.lat <= -0.02) || (mapLocation.lng - dragLocation.lng >= 0.04 || mapLocation.lng - dragLocation.lng <= -0.04)) {
@@ -46,81 +41,66 @@ function App() {
 
   const [highlightedTweet, setHighlightedTweet] = useState("")
 
-  const highlightTweet = (id) => {
+  const highlightTweet = (id, hoverSource) => {
     setHighlightedTweet(id)
-  }
+    if (hoverSource === 'LocationPin') {
+      document.getElementById(`${id}`).scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
 
-  const showTweetLocation = (lat, lon) => {
-    setTweetLocation({
-      lat: lat,
-      lng: lon
-    })
   }
 
   const searchByLocation = async (query) => {
-    const coords = await getCoordsFromQuery(query)
-    getTweetsBySearch(coords);
-  }
-
-  const getTweetsBySearch = async (coords) => {
-    const lat = coords.latitude;
-    const lon = coords.longitude;
-    const tweetData = await requestTweets(lat, lon);
-    setTweets({
-      tweets: tweetData
-    })
-    setMapLocation({
-      lat: lat,
-      lng: lon
-    })
+    if (query !== 'Search by location') {
+      const coords = await getCoordsFromQuery(query)
+      getTweets(coords);
+    }
   }
 
   const getUserLocation = () => {
-    navigator.geolocation.getCurrentPosition(getTweets);
+    navigator.geolocation.getCurrentPosition((rawCoords) => {
+      const coordsObject = {
+        lat: rawCoords.coords.latitude,
+        lng: rawCoords.coords.longitude
+      }
+      getTweets(coordsObject)
+    });
   }
 
-  const getTweets = async (rawCoords) => {
-    const lat = rawCoords.coords.latitude;
-    const lon = rawCoords.coords.longitude;
-    const tweetData = await requestTweets(lat, lon);
+
+  // accepts object as param w/ lat, lng properties
+  const getTweets = async (coordsObject) => {
+    const { lat, lng } = coordsObject
+    const tweetData = await requestTweets(lat, lng);
     setTweets({
       tweets: tweetData
     })
     setMapLocation({
       lat: lat,
-      lng: lon
+      lng: lng
     })
   }
 
-  const getTweetsByDrag = async () => {
-    const lat = dragLocation.lat;
-    const lon = dragLocation.lng;
-    const tweetData = await requestTweets(lat, lon);
-    setTweets({
-      tweets: tweetData
-    })
-    setMapLocation({
-      lat: lat,
-      lng: lon
-    })
-    setShowAreaSearchButton(false)
-  }
+
+
+
+
 
   const getTweetsNearMe = async () => {
     getUserLocation();
   }
 
   useEffect(() => {
-    getUserLocation();
-    showTweetLocation(52.0696583, 5.1189593)
+    //getUserLocation();
   }, [])
 
-  console.log(showAreaSearchButton)
 
   return (
     <div className="App">
-      <Aside searchByLocation={searchByLocation} showTweetLocation={showTweetLocation} getTweetsNearMe={getTweetsNearMe} tweets={tweets} highlightTweet={highlightTweet} />
-      <Map center={mapLocation} location={mapLocation} zoomLevel={13} tweets={tweets} highlightedTweet={highlightedTweet} checkDragLocation={checkDragLocation} showAreaSearchButton={showAreaSearchButton} getTweetsByDrag={getTweetsByDrag} />
+      <Aside searchByLocation={searchByLocation} getTweetsNearMe={getTweetsNearMe} tweets={tweets} highlightTweet={highlightTweet} highlightedTweet={highlightedTweet} />
+      <Map center={mapLocation} location={mapLocation} zoomLevel={13} tweets={tweets} highlightedTweet={highlightedTweet} checkDragLocation={checkDragLocation} showAreaSearchButton={showAreaSearchButton} getTweets={getTweets} dragLocation={dragLocation} highlightTweet={highlightTweet} setShowAreaSearchButton={setShowAreaSearchButton} />
     </div>
   );
 }

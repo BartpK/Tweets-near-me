@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Signika:wght@300;400;500;700&display=swap');
+
+$maincolor: #1DA1F2;
+$accentcolor: #EF7B45;
+$black: #042A2B;
+$lightgray: #E1E8ED;
+$extralightgray: #F5F8FA;
+
+$headerfont: 'Signika', sans-serif;
+$bodyfont: 'Montserrat', sans-serif;
+
+* {
+  margin: 0;
+  padding: 0; 
+  font-family: $bodyfont; 
+  color: $black;
+}
+
+h1, h2, h3, h4, h5, h5 {
+    font-family: $headerfont;
+    font-weight: 400;
+}
+
+h1 {
+    color: $maincolor;
+    margin-bottom: 1rem;
+}
+
+.asideheader {
+    background-color: white;
+    padding: 16pt;
+}
+
+.Aside {
+  background-color: #f2f2f2;
+  height: 100vh;
+  overflow: scroll;
+}
+
+.App {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  max-height: 100vh;
+  background-color: #f4f4f4;
+}
+
+.search {
+  position: sticky;
+  top:0;
+  background: white;
+  padding: 16pt;
+  display: grid;
+  grid-template-columns: 60% auto auto;
+}
+
+.search button, .search input {
+    padding: 4pt 8pt;
+    border: none;
+}
+
+.search button {
+    background-color: $maincolor;
+    margin-left: 4px;
+    color: white;
+    font-weight: 400;
+}
+
+.search i {
+    color: white;
+    
+}
+
+.search input {
+    background-color: $lightgray;
+}
+
+.tweetcard {
+  margin: 1rem 0.3rem;
+  background-color: white;
+  padding: 1rem;
+  box-shadow: #d3d9de 0px 2px 5px;
+  transition: border 200ms;
+}
+
+.tweetheader {
+    display: grid;
+    grid-template-columns: 4rem auto;
+    grid-template-rows: 1fr 1fr;
+}
+
+.tweetprofilepic {
+    border-radius: 100%;
+    grid-row: 1/-1;
+    grid-column: 1;
+}
+
+.username {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.userhandle {
+    grid-column: 2;
+    grid-row: 2;
+    font-size: 0.8rem;
+}
+
+.tweetcontent {
+    margin: 1rem 0;
+}
+
+.tweeturl {
+    color: $maincolor;
+    text-decoration: none;
+}
+
+.tweetphoto {
+    width: 100%;
+}
+
+.highlightedtweet {
+    border-bottom: $accentcolor solid 5px;
+    border-top: $accentcolor solid 5px;
+}
+
+.tweetdate {
+    font-size: 0.8rem;
+    margin: 0.4rem 0;
+  }
+
+
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+       #map {
+        height: 100%;
+    }
+
+    /* Optional: Makes the sample page fill the window. */
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .customlocationpin {
+      display: block;
+      width: 1.5rem;
+      margin: auto;
+      text-align: center;
+      background-color: white;
+      border-radius: 100%;
+      border: 5px solid $maincolor;
+      transition: width 200ms;
+    }
+
+    .searchareabutton {
+      background: $maincolor;
+      position: absolute;
+      top: 0;
+      left: 50;
+      right: 50;
+      margin: 2rem auto;
+      z-index: 2;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 1.5rem;
+      color: white;
+      font-weight: 400;
+    }
+
+    .buttondiv {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+    }
