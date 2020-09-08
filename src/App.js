@@ -21,7 +21,7 @@ function App() {
   const [dragLocation, setDragLocation] = useState({})
 
   const toggleAreaSearchButton = (dragLocation) => {
-    if ((mapLocation.lat - dragLocation.lat >= 0.02 || mapLocation.lat - dragLocation.lat <= -0.02) || (mapLocation.lng - dragLocation.lng >= 0.04 || mapLocation.lng - dragLocation.lng <= -0.04)) {
+    if ((mapLocation.lat - dragLocation.lat >= 0.01 || mapLocation.lat - dragLocation.lat <= -0.01) || (mapLocation.lng - dragLocation.lng >= 0.02 || mapLocation.lng - dragLocation.lng <= -0.02)) {
       setShowAreaSearchButton(true)
     } else {
       setShowAreaSearchButton(false)
@@ -34,7 +34,6 @@ function App() {
       lng: e.center.lng()
     }
     //check if difference is large enough to show button
-
     setDragLocation(dragLocation)
     toggleAreaSearchButton(dragLocation)
   }
@@ -93,14 +92,14 @@ function App() {
   }
 
   useEffect(() => {
-    //getUserLocation();
+    getUserLocation();
   }, [])
 
 
   return (
     <div className="App">
       <Aside searchByLocation={searchByLocation} getTweetsNearMe={getTweetsNearMe} tweets={tweets} highlightTweet={highlightTweet} highlightedTweet={highlightedTweet} />
-      <Map center={mapLocation} location={mapLocation} zoomLevel={13} tweets={tweets} highlightedTweet={highlightedTweet} checkDragLocation={checkDragLocation} showAreaSearchButton={showAreaSearchButton} getTweets={getTweets} dragLocation={dragLocation} highlightTweet={highlightTweet} setShowAreaSearchButton={setShowAreaSearchButton} />
+      <Map center={mapLocation} location={mapLocation} zoomLevel={15} tweets={tweets} highlightedTweet={highlightedTweet} checkDragLocation={checkDragLocation} showAreaSearchButton={showAreaSearchButton} getTweets={getTweets} dragLocation={dragLocation} highlightTweet={highlightTweet} setShowAreaSearchButton={setShowAreaSearchButton} />
     </div>
   );
 }

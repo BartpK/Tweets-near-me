@@ -1,13 +1,28 @@
+import { getGeoByPlace } from './utils'
+
 const geoApiKey = 'd4749ab0cd4841ce85970147b0337e76'
 
 
-export const requestTweets = async (lat, lon) => {
-    const res = await fetch(`http://localhost:3010/tweets/${lat},${lon}`)
+export const requestTweets = async (lat, lng) => {
+
+    const res = await fetch(`https://us-central1-node-server-78be8.cloudfunctions.net/getTweets?lat=${lat}&lng=${lng}&radius=2`)
     const data = await res.json()
+
     const filteredData = data.statuses.filter(tweet => {
         return tweet.geo !== null;
     })
-    return filteredData;
+
+    const salvagedTweets = getGeoByPlace(data.statuses.filter(tweet => {
+        return tweet.geo === null && tweet.place !== null;
+    }))
+
+    const combinedData = filteredData.concat(salvagedTweets)
+
+    combinedData.sort((a, b) => {
+        return new Date(a.created_at) < new Date(b.created_at) ? 1 : -1;
+    })
+
+    return combinedData;
 }
 
 //Need to fix error for invalid search query
