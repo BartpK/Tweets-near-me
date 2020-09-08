@@ -82,11 +82,6 @@ function App() {
     })
   }
 
-
-
-
-
-
   const getTweetsNearMe = async () => {
     getUserLocation();
   }
