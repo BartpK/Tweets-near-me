@@ -182,4 +182,59 @@ body {
           justify-content: center;
   text-align: center;
 }
+
+@media (max-width: 900px) {
+  .App {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+    -ms-grid-rows: auto auto;
+        grid-template-rows: auto auto;
+  }
+  .Aside {
+    -ms-grid-row: 2;
+    grid-row: 2;
+    height: 45vh;
+    width: 100%;
+    overflow: scroll;
+    position: absolute;
+    bottom: 0;
+  }
+  .map {
+    -ms-grid-row: 1;
+    grid-row: 1;
+  }
+  .google-map {
+    width: 100%;
+    min-height: 47vh;
+  }
+  .Tweetlist {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-rows: 1fr;
+        grid-template-rows: 1fr;
+    -ms-grid-columns: (90%)[100];
+        grid-template-columns: repeat(100, 90%);
+  }
+  .tweetphoto {
+    display: none;
+  }
+  .tweetcard * {
+    font-size: 0.7rem;
+  }
+  .tweetcard {
+    max-height: 200px;
+    margin: 0.6rem 0.3rem;
+  }
+  .asideheader {
+    display: none;
+  }
+  .search {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    left: 0;
+  }
+}
 /*# sourceMappingURL=App.css.map */

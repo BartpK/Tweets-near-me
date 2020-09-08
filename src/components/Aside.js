@@ -10,7 +10,7 @@ function Aside(props) {
         <div className="Aside">
             <div className="asideheader">
                 <h1>Tweets near me</h1>
-                <p>Use the <i className="fas fa-crosshairs"></i> below to find tweets near your location or search for addresses, place names, or landmarks using the search bar. You can also drag the map to search.</p>
+                <p>Use the <i className="fas fa-crosshairs"></i> below to find tweets within a 2km radius of your location or search for addresses, place names, or landmarks using the search bar. You can also drag the map to search.</p>
             </div>
             <SearchBar searchByLocation={props.searchByLocation} getTweetsNearMe={props.getTweetsNearMe} />
 
